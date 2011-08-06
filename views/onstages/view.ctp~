@@ -1,0 +1,36 @@
+
+
+<h1 align="center">Counting Down to New Year's 2011</h1>
+<SCRIPT language="JavaScript" SRC="/single/webroot/js/countdown.php?timezone=Asia/Kuala_Lumpur&countto=<?php echo $onstage['Onstage']['time']; ?> 00:00:00&do=t&data=WAWASAN 2011"></SCRIPT>
+<p>&nbsp;</p
+<div class="onstages view">
+<h2><?php  __('Onstage');?></h2>
+	<dl><?php $i = 0; $class = ' class="altrow"';?>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $onstage['Onstage']['id']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Single'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $this->Html->link($onstage['Single']['name'], array('controller' => 'singles', 'action' => 'view', $onstage['Single']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Time'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $onstage['Onstage']['time']; ?>
+			&nbsp;
+		</dd>
+	</dl>
+</div>
+<div class="actions">
+	<h3><?php __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('Edit Onstage', true), array('action' => 'edit', $onstage['Onstage']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Delete Onstage', true), array('action' => 'delete', $onstage['Onstage']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $onstage['Onstage']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List Onstages', true), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Onstage', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Singles', true), array('controller' => 'singles', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Single', true), array('controller' => 'singles', 'action' => 'add')); ?> </li>
+	</ul>
+</div>

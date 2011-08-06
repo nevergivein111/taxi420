@@ -1,0 +1,74 @@
+
+
+/*  STEREOLINE TEMPLATE CSS THEME */
+
+/* Background website */
+body{ background:#e9e9e9 url(../img/themes/royal/site_bg.) repeat-x;}
+
+/* Wrap */
+.wrap{background:url(../img/themes/royal/wrap_bg.) no-repeat 50% top;}
+	
+/* Footer images */
+#footer{
+	background:url(../img/themes/royal/footer_bg.) repeat-x;
+	}
+	#footer .content{
+		background:url(../img/themes/royal/footer_content.jpg) repeat-x left top;
+	}
+
+/* Top navigation hover and current states */
+#top_nav li a:hover{color:#1c72b6;}
+#top_nav li a.current{color:#1c72b6;}
+
+/* Main navigation hover and current state */
+#navigation li a:hover{color:#1c72b6;}
+#navigation li a:hover span{color:#FFF;}
+#navigation li a.current{color:#1c72b6;}
+#navigation li a.current span{color:#FFF;}
+
+/* Sign in panel links */
+#signin_panel a{color:#1c72b6;}
+#signin_panel a:hover{color:#FFF; border-bottom:1px solid #1c72b6;}
+
+/* Main content links */
+#main .content a{color:#1c72b6;}
+#main .content a:hover{color:#999;}
+
+/* sidebar links */
+#sidebar a{color:#666 !important;}
+#sidebar a:hover{color:#1c72b6;}
+
+	/* List color link */
+	#sidebar .inner_padding li a{color:#666 !important;}
+	#sidebar .inner_padding li a:hover{color:#1c72b6 !important;}
+	
+	/* Twitter update link */
+	#deadTweets a{color:#33ccff !important;}
+	#deadTweets a:hover{color:#1c72b6 !important;}
+	
+	/* Follow color link */
+	#sidebar .follow a{color:#666 !important;}
+	#sidebar .follow a:hover{color:#1c72b6 !important;}
+
+/* Blog links */
+.blog_entry .info a{color:#FFF !important;}
+.blog_entry .info a:hover{color:#1c72b6 !important;}
+
+#paginator a{ color:#FFF !important; }
+#paginator a:hover{ color:#1c72b6 !important; }
+
+/* Interview links */
+.interview_entry .info a{color:#FFF !important;}
+.interview_entry .info a:hover{color:#1c72b6 !important;}
+
+/* Submit button hover state */
+.form_block .form_submit input:hover{color:#1c72b6;Â }
+
+/* Footer nav link */
+.bottom_nav li a:hover{color:#1c72b6;}
+
+/* footer list link */
+.footer_3cols .col li a:hover{color:#1c72b6;}
+
+/* Counter pictures */
+.album_entry .counter{ color:#1c72b6;}

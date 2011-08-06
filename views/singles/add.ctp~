@@ -1,0 +1,61 @@
+<div class="singles form">
+<?php echo $this->Form->create('Single',array('enctype' => 'multipart/form-data'));?>
+	<fieldset>
+ 		<legend><?php __('Add Single'); ?></legend>
+	<?php
+		echo $this->Form->input('name');
+		echo $this->Form->input('sex');
+		echo $this->Form->input('city_id');
+		echo $this->Form->input('age');
+		echo $this->Form->input('details');
+		echo "wantToMarry";
+		echo $this->Form->checkbox('wantToMarry', array('value' =>"yes"));
+		echo "<br></br>";
+		echo "wantToFlirt";
+		echo $this->Form->checkbox('wantToFlirt', array('value' =>"yes"));
+		echo "<br></br>";
+		echo "wantToRelationship";
+		echo $this->Form->checkbox('wantToRelationship', array('value' =>"yes"));
+		echo "<br></br>";
+		echo "dontKnow";
+		echo $this->Form->checkbox('dontKnow', array('value' =>"yes"));
+		?>
+		
+			<h3><?php echo "ADD PICTURES"; ?></h3>Note: MAXIMUM File Siz:4 MB
+		
+		<?php
+		echo "<br>";
+		echo $form->file("File.abc123.submittedfile");
+		echo "<br>"; 
+		echo $form->file("File.abc321.submittedfile");
+		echo "<br>"; 
+	    echo $form->file("File.abca.submittedfile");
+		echo "<br>"; 
+	
+		
+		?>
+		<?php
+		echo "Video file";
+		echo $form->file("File.video");
+		echo $this->Form->input('eyes');
+		echo $this->Form->input('hairs');
+		echo $this->Form->input('bodyType');
+		echo $this->Form->input('weight');
+		echo $this->Form->input('date');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit', true));?>
+</div>
+<div class="actions">
+	<h3><?php __('Actions'); ?></h3>
+	<ul>
+
+		<li><?php echo $this->Html->link(__('List Singles', true), array('action' => 'index'));?></li>
+		<li><?php echo $this->Html->link(__('List Cities', true), array('controller' => 'cities', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New City', true), array('controller' => 'cities', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Pictures', true), array('controller' => 'pictures', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Picture', true), array('controller' => 'pictures', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
+	</ul>
+</div>

@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- METAS -->
+    <meta name="description" content="Description..." />
+    <meta name="keywords" content="Keywords..." />
+
+	<title>
+		<?php __('CakePHP: the rapid development php framework:'); ?>
+		<?php echo $title_for_layout; ?>
+	</title>
+	<?php
+		echo $this->Html->meta('icon');
+
+		echo $this->Html->css('styles');
+		echo $this->Html->css('royal');
+		echo $this->Html->css('colorbox');
+
+		echo $scripts_for_layout;
+	?>JSS
+		<script src="<?php echo LINK; ?>webroot/js/jw/swfobject.js"></script>
+    <script src="<?php echo JSS; ?>jquery-1.4.4.min.js"></script>
+      <script src="<?php echo JSS; ?>jquery.easing.1.3.js"></script>
+        <script src="<?php echo JSS; ?>twitter.js"></script>
+          <script src="<?php echo JSS; ?>custom.js"></script>
+            <script src="<?php echo JSS; ?>jquery.colorbox.js"></script>
+              <script src="<?php echo JSS; ?>slide.js"></script>
+                <script src="<?php echo JSS; ?>cufon-yui.js"></script>
+              <script src="<?php echo JSS; ?>bebas_400.font.js"></script>
+
+
+   
+    
+    
+    
+
+    
+    
+    
+    
+          
+    <!--[if IE 6]>
+        <script type="text/javascript" src="http://www.littlekillian.com/js/DD_belatedPNG.js"></script>
+        <script src="http://www.littlekillian.com/js/DD_belatedPNG.js"></script>
+        <script>
+          /* EXAMPLE */
+          DD_belatedPNG.fix('*');
+        </script>
+	<![endif]-->
+    
+    
+    
+    
+    
+    
+    <script>
+		$(document).ready(function(){
+			//Examples of how to assign the ColorBox event to elements
+			$("a[rel='example1']").colorbox();
+			$("a[rel='example2']").colorbox({transition:"fade"});
+			$("a[rel='example3']").colorbox({transition:"none", width:"100%", height:"100%"});
+			$("a[rel='example4']").colorbox({slideshow:true});
+			$(".example5").colorbox({width:"64%", height:"67%"});
+			$(".example6").colorbox({iframe:true, innerWidth:600, innerHeight:360});
+			$(".example7").colorbox({width:"80%", height:"80%", iframe:true});
+			$(".example8").colorbox({width:"50%", inline:true, href:"#inline_example1"});
+			$(".example9").colorbox({
+				onOpen:function(){ alert('onOpen: colorbox is about to open'); },
+				onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
+				onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
+				onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
+				onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
+			});
+			
+			//Example of preserving a JavaScript event for inline calls.
+			$("#click").click(function(){ 
+				$('#click').css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here.");
+				return false;
+			});
+		});
+	</script>
+    
+    
+    
+    
+     
+     
+			
+<meta charset="UTF-8"></head>
+
+<body>
+
+<!-- WRAP -->
+<div class="wrap">
+
+
+<!-- HEADER -->
+<div id="header">
+    <!-- content of header -->
+    <div class="content">
+    
+    	<!-- Demo theme -->
+		<div class="demo_theme">
+        <script type="text/javascript">
+		<!--
+		function MM_jumpMenu(targ,selObj,restore){ //v3.0
+		  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+		  if (restore) selObj.selectedIndex=0;
+		}
+		//-->
+		</script>
+        	
+        	
+        </div>
+    	<!-- Demo theme -->
+        
+        <!-- Top Nav -->
+        <div id="top_nav">
+            <ul>
+            <li class="home"><a href="./index.html" class="current">Home</a></li>
+            <li class="about"><a href="./about/index.html" >About</a></li>
+            <li class="mail"><a href="./contact/index.html" >Contact</a></li>
+            </ul>
+        </div>
+        <!-- /Top Nav -->
+
+<br class="clear" />
+        <!-- Logo block -->
+        <div id="logo">
+        
+        <div class="logolocationchange">
+        <center>
+        get the daily single on your city
+        <select name="city">
+        <option>NewYork</option>
+        <option>Chicago</option>
+        </select>
+		</center>
+        </div>
+        
+        <div class="logolocation">
+        
+        <h5>OnStage in </h5><h2>NewYork</h2>
+        <a href="#" class="button5 olive">change your city</a>
+        
+        </div>
+            
+        </div>
+        <!-- /Logo block -->
+        
+            
+        <!-- Sign up button -->
+        <div class="signup"><a href="./signup.html"><span class="inv">Sign up</span></a></div>
+        <!-- /Sign up button -->
+
+
+        <!-- Navigation -->
+<div id="navigation">
+            <ul>
+            <li><a href="./interviews/index.html" >OnStage<span>meet your soul mates</span></a></li>
+            <li><a href="./videos/index.html" >After Stage<span>meet your soul mates</span></a>
+              <ul class="sub_menu">
+                            <li><a href="./videos_cat/concerts.html"><span>Concerts (2)</span></a></li>
+			            <li><a href="./videos_cat/clips.html"><span>Clips (1)</span></a></li>
+			            <li><a href="./videos_cat/making-of.html"><span>Making-of (1)</span></a></li>
+			            <li><a href="./videos_cat/interviews.html"><span>Interviews (0)</span></a></li>
+			                </ul>
+            </li>
+            <li><a href="./albums/index.html" >How it work<span>meet your soul mates</span></a></li>
+            <li><a href="./news/index.html" >My Stage<span>meet your soul mates</span></a>
+              <ul class="sub_menu">
+                                <li><a href="./news/reviews.html"><span>Reviews (1)</span></a></li>
+				                <li><a href="./news/concerts.html"><span>Concerts (1)</span></a></li>
+				                <li><a href="./news/news.html"><span>News (3)</span></a></li>
+				                <li><a href="./news/photographies.html"><span>Photographies (2)</span></a></li>
+				                </ul>
+            </li>
+            <li><a href="#" id="signin_show">Sign in<span>Members zone</span></a></li>
+            </ul>
+        </div>
+        <!-- /Navigation -->
+        
+        
+        <!-- Search form -->
+        <div id="search_engine">
+            <form action="http://www.littlekillian.com/Search/" method="post">
+                <div class="field"><input type="text" name="keyword" id="keyword" title="Search..." value="Search..." onfocus="if (this.value == 'Search...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search...';}" /></div>
+                <div><input type="submit" class="button" value=" " /></div>
+                <div class="clear"></div>
+            </form>
+        </div>
+        <!-- /Search form -->
+        
+        
+        <!-- Sign in Panel -->
+        <div id="signin_panel">
+        	<form action="" method="post">
+            	<div class="field">
+                	<label for="sign_login">Login</label>
+                	<input type="text" name="" id="sign_login" />
+                </div>
+            	<div class="field">
+                	<label for="sign_pass">Password</label>
+                	<input type="password" name="" id="sign_pass" />
+                </div>
+            	<div class="submitter">
+                	<input type="submit" name="signin_go" id="sign_go" value="" />
+                </div>
+                <div class="clear"></div>
+            </form>
+        	<div class="instructions">
+            	<p>Fill the signin form and go to your private zone.</p>
+                <p><a href="#">Forgotten password?</a></p>
+            </div>
+                <br class="clear" />
+        </div>
+        <!-- /Sign in Panel -->
+    
+    
+    </div>
+    <!-- /content of header -->
+</div>
+<!-- /HEADER -->
+
+
+
+
+<!-- MAIN -->
+
+			<?php echo $this->Session->flash(); ?>
+
+			<?php echo $content_for_layout; ?>
+<!-- /MAIN -->
+
+
+
+
+
+
+<!-- FOOTER -->
+<div id="footer">
+    <!-- content of footer -->
+    <div class="content">
+    
+    
+    	<!-- Bottom navigation -->
+        <div class="bottom_nav">
+        	<ul>
+            <li><a href="./index.html" class="current">Home</a></li>
+            <li><a href="./about/index.html" >About</a></li>
+            <li><a href="./interviews/index.html" >Contact </a></li>
+            <li><a href="./videos/index.html" >Pictures</a></li>
+            <li><a href="./albums/index.html" >Gallery</a></li>
+            <li><a href="./news/index.html" >Actualities</a></li>
+            <li><a href="./contact/index.html" >Contact</a></li>
+            </ul>
+        </div>
+    	<!-- /Bottom navigation -->
+        
+        
+    	<!-- Go top link -->
+        <div class="go_top">
+        	<a href="#top"><span class="inv">Go Top</span></a>
+        </div>
+    	<!-- /Go top link -->
+        
+        
+    	<!-- Copyright -->
+        <div class="copyright">
+       	  © Copyright SingleOnStage.com  </div>
+    	<!-- /Copyright -->
+        
+        
+        <br class="clear" />
+        
+        
+        <!-- 3 cols -->
+        <div class="footer_3cols">
+        
+        	<!-- Col -->
+        	<div class="col">
+            	<h4>Recent posts</h4>
+                <ul>
+				                <li><a href="./news_read/stereoline-the-new-php-template/index.html" title="Sunday 12 September 2010 at 07:30 pm"><span>Stereoline - a new template php</span></a></li>
+                                <li><a href="./news_read/the-winner-is-stereoline.html" title="Wednesday 25 August 2010 at 01:24 am"><span>And the winner is ?... Stereoline !</span></a></li>
+                                <li><a href="./news_read/lorem-ipsum3.html" title="Wednesday 25 August 2010 at 01:21 am"><span>Awesome Lorem ipsum post :)</span></a></li>
+                                <li><a href="./news_read/lorem-ipsum2.html" title="Wednesday 25 August 2010 at 01:20 am"><span>Another magic Lorem ipsum post</span></a></li>
+                                <li><a href="./news_read/lorem-ipsum1.html" title="Wednesday 25 August 2010 at 01:18 am"><span>Lorem ipsum post</span></a></li>
+                                </ul>
+            </div>
+        	<!-- /Col -->
+        
+        	<!-- Col middle -->
+        	<div class="col_middle">
+                <a href="./index.html" class="footer_logo" title="Stereoline Magazine based on the music"><span>Stereoline</span></a>
+            </div>
+        	<!-- /Col middle -->
+        
+        	<!-- Col -->
+        	<div class="col">
+            	<h4>Recent interviews</h4>
+                <ul>
+                                <li><a href="./interviews/devilcantburn-interview/index.html" title="Monday 13 September 2010 at 04:20 pm"><span>Interview with Devilcantburn</span></a></li>
+                                <li><a href="./interviews/the-best-interview-of-the-world/index.html" title="Monday 13 September 2010 at 04:18 pm"><span>The best interview is here</span></a></li>
+                                <li><a href="./interviews/pomidop-interview/index.html" title="Monday 13 September 2010 at 04:15 pm"><span>Don't you know Pompidop?</span></a></li>
+                                <li><a href="./interviews/no-featured-intervew/index.html" title="Monday 13 September 2010 at 04:13 pm"><span>A new interview not featured</span></a></li>
+                                <li><a href="./interviews/who-is-behind-the-best-template/index.html" title="Monday 13 September 2010 at 04:10 pm"><span>Whos is behind the best template?</span></a></li>
+                                </ul>
+            </div>
+        	<!-- /Col -->
+            
+        <br class="clear" />
+        </div>
+        <!-- /3 cols -->
+    
+    
+    </div>
+    <!-- /content of footer -->
+</div>
+<!-- /FOOTER -->
+
+</div>
+<!-- /WRAP -->
+    <script type="text/javascript" src="./js/tweet.js"></script>
+<script type="text/javascript" src="http://twitter.com/statuses/user_timeline/Devilcantburn.json?callback=twitterCounter&amp;count=1"></script>
+<script type="text/javascript">
+	//Cufon repleace
+	Cufon.replace('h2, h3, h4, h5, h6, label, .number, .follow, .cufon',{ hover: true });
+</script>
+<script type="text/javascript"> Cufon.now(); </script>
+
+
+
+
+
+
+</body>
+</html>

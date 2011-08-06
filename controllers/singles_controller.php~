@@ -1,0 +1,578 @@
+<?php
+App::import('Sanitize');
+class SinglesController extends AppController {
+
+	var $name = 'Singles';
+
+	function index() {
+		$this->Single->recursive = 0;
+		$this->set('singles', $this->paginate());
+	}
+
+	function view($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid single', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->set('single', $this->Single->read(null, $id));
+	}
+
+	function add() {
+		if (!empty($this->data)) {
+		
+
+     $matches=NULL;
+
+     if(!empty($this->data['File']['video']['name'])  || !empty($this->data['Single']['youtube']) ) 
+ 	 {
+ 	 	  if(!empty($this->data['File']['video']['name']) && !empty($this->data['Single']['youtube']) ) 
+ 	 {
+ 	 	 $this->Session->setFlash(__('You can select only one Upload Source For your video !', true));
+		 $this->redirect(array('action' => 'add'));
+ 	 	 
+ 	 }
+ 	 	 
+ 	 	 
+ 	 	 
+ 	 	 if(!empty($this->data['Single']['youtube']))	 	 
+ 		 {
+ 		 	
+ 		 	 preg_match(
+ 		 	 	 '/[\\?\\&]v=([^\\?\\&]+)/',
+ 		 	 	 $this->data['Single']['youtube'],
+ 		 	 	 $matches
+ 		 	 	 );
+
+	
+ 		 	 if (empty($matches[1]))
+  			  {
+  			  	  $this->Session->setFlash(sprintf(__('Youtube Link in not valid, plz check ur link', true), 'Single'));
+  			  	  $this->redirect(array('action' => 'add'));
+	
+  			  }
+
+    	 	}
+    	 	
+    	 	
+    	 	 if(!empty($this->data['File']['video']['name']))	 	 
+    	 	 	 {
+    	 	 	 	
+    	 	 	 	 $this->data['Document']['submittedfile'] = $this->data['File']['video'];
+    	 	 	 	 //
+	
+    	 	 	 	 if($this->data['Document']['submittedfile']['error']=='4' || $this->data['Document']['submittedfile']['error']=='0') 
+    	 	 	 	 {
+    	 	 	 	 	 if($this->data['Document']['submittedfile']['error']=='0')
+				   {
+				   
+				   	   $extension=$this->__findExtvideo($this->data['Document']['submittedfile']['name']);
+				   	   if(empty($extension))
+				   	   { 
+				   	   	   $this->Session->setFlash(sprintf(__('Wrong extension file.only can upload FLV Singles', true), 'video'));
+				   	   	   $this->redirect(array('action' => 'add'));
+				   	   }
+		
+				   	   if($this->data['Document']['submittedfile']['size'] > 4112194304 )
+				   	   { 
+				   	   	   $this->Session->setFlash(sprintf(__('File size should not be Larger than 2 MB.', true), 'video'));
+				   	   	   $this->redirect(array('action' => 'add'));
+				   	   }
+		
+		
+
+  
+				   	   $no=rand();
+				
+				   	   $videofiles=$this->data['Document']['submittedfile'];
+				   	   $this->temp_path2  =   $videofiles['tmp_name'];
+				   	   $this->videofilename   = ($no).basename($videofiles['name']);
+				   	   $this->videotype       = $videofiles['type'];
+				   	   $this->videosize       = $videofiles['size'];
+				   	   //-------------------------------------------------------------------------------------------
+				   	   $target_path = VIDEOPATH.$this->videofilename;
+
+				   	   if(file_exists($target_path)) {
+				   	   	   $this->Session->setFlash(sprintf(__('Duplicate Files %s plz change this file name', true), $this->filename ));
+				   	   	   $this->redirect(array('action' => 'add'));
+				   	   }
+		  
+			
+				   	   if(move_uploaded_file($this->temp_path2, $target_path))
+		 
+				   	   {
+				   	   	   //$this->redirect( '/videos/view/'.$this->video->id);
+		 			   } 
+					  
+					  
+					  
+					  else {
+						  
+						  
+					  	  // File not mobed.
+					$this->Session->setFlash(sprintf(__('The file upload failed, possibly due to incorrect permissions on the upload folder.', true), 'video'));
+					$this->redirect(array('action' => 'add'));	
+		 
+					  }
+					 
+		   
+				   }   
+				
+				   elseif($this->data['Document']['submittedfile']['error']=='4')
+				   { 
+				   	   //do nothing
+				   }
+		   
+
+				 } 
+	
+		
+				 elseif(is_uploaded_file($this->data['Document']['submittedfile']['tmp_name']))
+				 {
+				 	 $this->Session->setFlash(sprintf(__('not a rite uploadebale file', true), 'video'));
+				 	 $this->redirect(array('action' => 'add'));		
+				 }
+			
+				 elseif($this->data['Document']['submittedfile']['error']=='1')
+				 { 
+				 	 $this->Session->setFlash(sprintf(__('File size is Larger than upload_max_filesize.', true), 'video'));
+				 	 $this->redirect(array('action' => 'add'));		
+				 }
+	//
+		
+			
+				      elseif($this->data['Document']['submittedfile']['error']=='2')
+				{
+				$this->Session->setFlash(sprintf(__('File size is  Larger than form MAX_FILE_SIZE', true), 'video'));
+		$this->redirect(array('action' => 'add'));
+				
+				}
+				      elseif($this->data['Document']['submittedfile']['error']=='3')
+				{
+				$this->Session->setFlash(sprintf(__('Partial upload.', true), 'video'));
+		$this->redirect(array('action' => 'add'));
+				}
+				      elseif($this->data['Document']['submittedfile']['error']=='5')
+				{ 
+				$this->Session->setFlash(sprintf(__('No temporary directory', true), 'video'));
+		$this->redirect(array('action' => 'add'));
+				}
+				     elseif($this->data['Document']['submittedfile']['error']=='6')
+				{ 
+				$this->Session->setFlash(sprintf(__('Cant write to disk', true), 'video'));
+		$this->redirect(array('action' => 'add'));
+				}
+				     elseif($this->data['Document']['submittedfile']['error']=='7')
+				{ 
+				$this->Session->setFlash(sprintf(__('File upload stopped by extension', true), 'video'));
+		$this->redirect(array('action' => 'add'));
+				}
+					
+				if(!empty($this->videofilename))
+				{
+				$this->data['Single']['file']=$this->videofilename ;
+				}
+			
+
+    	 	 	 }
+	
+	 }
+	
+	 
+
+	 	 
+
+			$this->Single->create();
+			if ($this->Single->save($this->data)) {
+		
+	if(empty($this->data['File']['first']['submittedfile']['name']))
+		{
+		   $this->Session->setFlash(sprintf(__('You have to upload atleast One Image', true), 'post'));
+		   $this->Single->delete_post($this->Single->id);
+		   $this->redirect(array('action' => 'add'));
+		}
+       $i=0;
+	foreach($this->data['File'] as $file)
+	{
+	
+	$this->data['Document']['submittedfile'] = $file['submittedfile'];
+	
+	//
+
+	if($this->data['Document']['submittedfile']['error']=='4' || $this->data['Document']['submittedfile']['error']=='0') 
+		{
+		 if($this->data['Document']['submittedfile']['error']=='0')
+			{
+			   $extension=$this->__findExt($this->data['Document']['submittedfile']['name']);
+			   if(empty($extension))
+			   { 
+			   	   $this->Session->setFlash(sprintf(__('Wrong extension file.only can upload jpg.gif,bmp and png', true), 'post'));
+			   	   $this->Single->delete_post($this->Single->id);
+			   	   $this->redirect(array('action' => 'add'));
+			   }
+		
+			   if($this->data['Document']['submittedfile']['size'] > 4194304 )
+			   { 
+			   	   $this->Session->setFlash(sprintf(__('File size should not be Larger than 2 MB.', true), 'post'));
+			   	   $this->Single->delete_post($this->Single->id);
+			   	   $this->redirect(array('action' => 'add'));
+			   	   
+			   }
+		
+		
+
+  
+			   $no=rand();
+				
+			   $files=$this->data['Document']['submittedfile'];
+			   $this->temp_path  = $files['tmp_name'];
+			   $this->filename   = ($this->Single->id).basename($files['name']);
+			   $this->type       = $files['type'];
+			   $this->size       = $files['size'];
+
+			   $target_path = PATH.$this->filename;
+			   if(file_exists($target_path)) {
+			   	   $this->Session->setFlash(sprintf(__('Duplicate Files %s plz change this file name', true), $this->filename ));
+			   	   $this->Single->delete_post($this->Single->id);
+			   	   $this->redirect(array('action' => 'add'));
+			   				}
+			   if(move_uploaded_file($this->temp_path, $target_path)) {
+			   	   //$this->redirect( '/posts/view/'.$this->Post->id);
+			   	   if($extension=='.jpg' || $extension=='.JPG'){
+			   	   	   $this->__small($this->filename);
+			   	   	   $this->__medium($this->filename);
+			   	   						}
+			   	   						
+			   	   $dating['Photo']=$this->data['Document']['submittedfile'];
+			   	   $dating['Photo']['single_id']=$this->Single->id;
+			   	   $dating['Photo']['name']=$this->filename;
+			   	   if($i == 0){
+			   	   	   $params['id']=$this->Single->id;
+			   	   	   $params['image']=$this->filename;
+			   	   	   $this->Single->update_post($params);
+			   	   		}
+			   	  $i=$i+1;
+			   	  $this->loadModel('Photo');
+			   	  $this->Photo->save($dating);
+			   	  //$this->redirect( array('action'=>'view',$this->Post->id));
+			          }
+			          else {
+				// File was not moved.
+					$this->Session->setFlash(sprintf(__('The file upload failed, possibly due to incorrect permissions on the upload folder.', true), 'post'));
+					$this->Single->delete_post($this->Single->id);
+					$this->redirect(array('action' => 'add'));	
+					return false;
+				  	}
+				}   
+		elseif($this->data['Document']['submittedfile']['error']=='4')
+			{ 
+		//do nothing 
+			}
+		   
+
+	} 
+	
+		
+	elseif(is_uploaded_file($this->data['Document']['submittedfile']['tmp_name']))
+		{
+			$this->Session->setFlash(sprintf(__('not a rite uploadebale file', true), 'post'));
+			$this->Single->delete_post($this->Single->id);
+			$this->redirect(array('action' => 'add'));		
+		}
+		
+	elseif($this->data['Document']['submittedfile']['error']=='1')
+		{ 
+			$this->Session->setFlash(sprintf(__('File size is Larger than upload_max_filesize.', true), 'post'));
+			$this->Single->delete_post($this->Single->id);
+			$this->redirect(array('action' => 'add'));		
+		}
+//
+
+	
+		      elseif($this->data['Document']['submittedfile']['error']=='2')
+		{
+		$this->Session->setFlash(sprintf(__('File size is  Larger than form MAX_FILE_SIZE', true), 'post'));
+		$this->Single->delete_post($this->Single->id);
+		$this->redirect(array('action' => 'add'));
+		
+		}
+		      elseif($this->data['Document']['submittedfile']['error']=='3')
+		{
+		$this->Session->setFlash(sprintf(__('Partial upload.', true), 'post'));
+		$this->Single->delete_post($this->Single->id);
+		$this->redirect(array('action' => 'add'));
+		}
+		      elseif($this->data['Document']['submittedfile']['error']=='5')
+		{ 
+		$this->Session->setFlash(sprintf(__('No temporary directory', true), 'post'));
+		$this->Single->delete_post($this->Single->id);
+		$this->redirect(array('action' => 'add'));
+		}
+		     elseif($this->data['Document']['submittedfile']['error']=='6')
+		{ 
+		$this->Session->setFlash(sprintf(__('Cant write to disk', true), 'post'));
+		$this->Single->delete_post($this->Single->id);
+		$this->redirect(array('action' => 'add'));
+		}
+		     elseif($this->data['Document']['submittedfile']['error']=='7')
+		{ 
+		$this->Session->setFlash(sprintf(__('File upload stopped by extension', true), 'post'));
+		$this->Single->delete_post($this->Single->id);
+		$this->redirect(array('action' => 'add'));
+		}
+
+	} //end foreach			
+			
+
+				$this->Session->setFlash(__('The single has been saved', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The single could not be saved. Please, try again.', true));
+			}
+		}
+		$cities = $this->Single->City->find('list');
+		$pictures = $this->Single->Picture->find('list');
+		$users = $this->Single->User->find('list');
+		$this->set(compact('cities', 'pictures', 'users'));
+	}
+	
+	
+
+	
+	
+	
+	
+function __small($filename)
+ {
+    // set original image location
+			 $img =PATH.$filename;
+		 //------------------------------------------------------------------------------------------------------------------------
+		
+		// set our image canvas
+		$canvas_width  = 150;
+		$canvas_height = 150;
+		
+		// get width and height of original image
+		list($img_width, $img_height) = getimagesize($img);
+		
+		$ratio_orig = $img_width / $img_height;
+		
+		if($canvas_width / $canvas_height > $ratio_orig)
+		{
+		  $canvas_width = $canvas_height * $ratio_orig;	
+		}
+		else
+		{
+			$canvas_height = $canvas_width / $ratio_orig;
+		}
+		
+		// loading in our original image
+		$original = imagecreatefromjpeg($img);
+		
+		// create a blank canvas
+		$canvas = imagecreatetruecolor($canvas_width, $canvas_height);
+		
+     imagecopyresampled($canvas, $original, 0, 0, 0, 0, $canvas_width, $canvas_height, $img_width, $img_height);
+		
+		if(imagejpeg($canvas,PATH2.$filename, 80))
+		{
+		   return true	;
+		}
+		else
+		{
+		   return false;	
+		}
+
+ }
+ function __medium($filename)
+ {
+    // set original image location
+			 $img =PATH.$filename;
+		 //------------------------------------------------------------------------------------------------------------------------
+		
+		// set our image canvas
+		$canvas_width  = 500;
+		$canvas_height = 450;
+		
+		// get width and height of original image
+		list($img_width, $img_height) = getimagesize($img);
+		
+		$ratio_orig = $img_width / $img_height;
+		
+		if($canvas_width / $canvas_height > $ratio_orig)
+		{
+		  $canvas_width = $canvas_height * $ratio_orig;	
+		}
+		else
+		{
+			$canvas_height = $canvas_width / $ratio_orig;
+		}
+		
+		// loading in our original image
+		$original = imagecreatefromjpeg($img);
+		
+		// create a blank canvas
+		$canvas = imagecreatetruecolor($canvas_width, $canvas_height);
+		
+     imagecopyresampled($canvas, $original, 0, 0, 0, 0, $canvas_width, $canvas_height, $img_width, $img_height);
+		
+		if(imagejpeg($canvas,PATH.$filename, 80))
+		{
+		   return true	;
+		}
+		else
+		{
+		   return false;	
+		}
+
+ }
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	function edit($id = null) {
+		if (!$id && empty($this->data)) {
+			$this->Session->setFlash(__('Invalid single', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		if (!empty($this->data)) {
+			if ($this->Single->save($this->data)) {
+				$this->Session->setFlash(__('The single has been saved', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The single could not be saved. Please, try again.', true));
+			}
+		}
+		if (empty($this->data)) {
+			$this->data = $this->Single->read(null, $id);
+		}
+		$cities = $this->Single->City->find('list');
+		$pictures = $this->Single->Picture->find('list');
+		$users = $this->Single->User->find('list');
+		$this->set(compact('cities', 'pictures', 'users'));
+	}
+
+	function delete($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid id for single', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if ($this->Single->delete($id)) {
+			$this->Session->setFlash(__('Single deleted', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		$this->Session->setFlash(__('Single was not deleted', true));
+		$this->redirect(array('action' => 'index'));
+	}
+	
+	function onstage($id){
+	if (!$id) {
+			$this->Session->setFlash(__('Invalid single', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		
+	if (!empty($this->data)) {
+	
+	$data['Onstage']['time']=$this->data['Single']['time'];
+	$data['Onstage']['single_id']=$this->data['Single']['newid'];
+	
+			$this->Single->Onstage->create();
+			if ($this->Single->Onstage->save($data)) {
+				$this->Session->setFlash(__('The Date has been saved', true));
+				$this->redirect(array('action' => 'add'));
+			} else {
+				$this->Session->setFlash(__('The single could not be saved. Please, try again.', true));
+			}
+		}
+		
+	// $this->autoRender=false;
+	//$this->loadModel('Onstage');
+	$data['Onstage']['single_id']=$id;
+	$single = $this->Single->read(null, $id);
+	
+	
+	
+	$this->set(compact('single','id'));
+	
+	
+	
+	}
+		
+
+	function admin_index() {
+		$this->Single->recursive = 0;
+		$this->set('singles', $this->paginate());
+	}
+
+	function admin_view($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid single', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->set('single', $this->Single->read(null, $id));
+	}
+
+	function admin_add() {
+		if (!empty($this->data)) {
+			$this->Single->create();
+			if ($this->Single->save($this->data)) {
+				$this->Session->setFlash(__('The single has been saved', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The single could not be saved. Please, try again.', true));
+			}
+		}
+		$cities = $this->Single->City->find('list');
+		$pictures = $this->Single->Picture->find('list');
+		$users = $this->Single->User->find('list');
+		$this->set(compact('cities', 'pictures', 'users'));
+	}
+
+	function admin_edit($id = null) {
+		if (!$id && empty($this->data)) {
+			$this->Session->setFlash(__('Invalid single', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		if (!empty($this->data)) {
+			if ($this->Single->save($this->data)) {
+				$this->Session->setFlash(__('The single has been saved', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The single could not be saved. Please, try again.', true));
+			}
+		}
+		if (empty($this->data)) {
+			$this->data = $this->Single->read(null, $id);
+		}
+		$cities = $this->Single->City->find('list');
+		$pictures = $this->Single->Picture->find('list');
+		$users = $this->Single->User->find('list');
+		$this->set(compact('cities', 'pictures', 'users'));
+	}
+
+	function admin_delete($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid id for single', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if ($this->Single->delete($id)) {
+			$this->Session->setFlash(__('Single deleted', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		$this->Session->setFlash(__('Single was not deleted', true));
+		$this->redirect(array('action' => 'index'));
+	}
+}
+?>
